@@ -40,30 +40,10 @@ abstract class Juno {
     }
 
     public function Authentication(?array $accessToken):Juno {
-
         /* Objeto Access Token - Access Token Object */
-        $aTokenObj = new AccessToken();
-
-        /* Primeiro Acesso - First Access */
-        if(empty($accessToken['expires_in'])){
-            $this->accessToken = (object) $aTokenObj->generateToken();
-            return $this;
-        }
-
-        /* Converte Datas - Convert Date */
-        $atualDate = strtotime(date("Y-m-d H:i:s"));
-        $expiresIn = strtotime($accessToken['expires_in']);
-
-        /* Demais Acessos - Other Access */
-        if($atualDate >= $expiresIn){
-            $this->accessToken = (object) $aTokenObj->generateToken();
-            return $this;
-        }
-
-        /* Saida Token Válido - Exit valid token */
-        $this->accessToken = (object) $accessToken;
+        $objToken = new AccessToken();
+        $this->accessToken = $objToken->authenticate($accessToken);
         return $this;
-
     }
 
     public function request(string $endpoint, string $method):void {
@@ -113,6 +93,17 @@ abstract class Juno {
         }
         if($format == "query"){
             $this->fields = (!empty($fields) ? http_build_query($fields) : null);
+        }
+    }
+
+    protected function upload(?array $fields) {
+        if(empty($fields)){ $this->fields = null; return;}
+        foreach ($fields as $key => $field){
+            $this->fields[$key] = curl_file_create(
+                $field['tmp_name'],
+                $field['type'],
+                $field['name']
+            );
         }
     }
 

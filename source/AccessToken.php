@@ -42,4 +42,31 @@ class AccessToken extends Juno {
         ];
     }
 
+    public function authenticate(?array $accessToken):?object {
+
+        /* Primeiro Acesso - First Access */
+        if(empty($accessToken['expires_in'])){
+            $return = (object) $this->generateToken();
+            $return->regenered = true;
+            return $return;
+        }
+
+        /* Converte Datas - Convert Date */
+        $atualDate = strtotime(date("Y-m-d H:i:s"));
+        $expiresIn = strtotime($accessToken['expires_in']);
+
+        /* Demais Acessos - Other Access */
+        if($atualDate >= $expiresIn){
+            $return = (object) $this->generateToken();
+            $return->regenered = true;
+            return $return;
+        }
+
+        /* Saida Token Válido - Exit valid token */
+        $return = (object) $accessToken;
+        $return->regenered = false;
+        return $return;
+
+    }
+
 }
