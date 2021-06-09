@@ -1,0 +1,24 @@
+{
+  "name": "cliqueti/juno",
+  "description": "Api unofficial for o juno payments.",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Paulo",
+      "email": "paulo@cliqueti.com.br",
+      "homepage": "https://www.cliqueti.com.br"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "cliqueti/filemanager": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "CliqueTI\\Juno\\": "source"
+    }
+  }
+}
