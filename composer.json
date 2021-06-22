@@ -1,6 +1,7 @@
 {
   "name": "cliqueti/juno",
   "description": "Api unofficial for o juno payments.",
+  "minimum-stability": "dev",
   "license": "proprietary",
   "authors": [
     {

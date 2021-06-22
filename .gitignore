@@ -47,6 +47,12 @@ composer.phar
 # DIR / Another Directories
 #-------------------------
 #exemplos
+cache
+
+#-------------------------
+# FILES / Another Files
+#-------------------------
+config.php
 
 #-------------------------
 # IDE / Development Files
