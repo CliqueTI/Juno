@@ -111,7 +111,7 @@ class Webhooks extends Juno {
         $this->header('X-Resource-Token', $xResourceToken);
 
         /* Request */
-        $this->request("notifications/webhooks/{$webhooksId}", 'PATCH');
+        $this->request("notifications/webhooks/{$webhooksId}", 'DELETE');
 
         return $this;
 
